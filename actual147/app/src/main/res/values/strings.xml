@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Safe Paths</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="facebook_app_id">623822074450943</string>
+    <string name="title_activity_navigator_mapas">Mi Mapa</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_mapa_general">Map</string>
+    <string name="title_activity_add_zona">Añadir Zona</string>
+
+    <string name="color_bajo">#FFF9C4</string>
+    <string name="color_medio">#FFE0B2</string>
+    <string name="color_alto">#FFCDD2</string>
+
+    <string name="color_bajo_sel">#FFC107</string>
+    <string name="color_medio_sel">#E65100</string>
+    <string name="color_alto_sel">#F44336</string>
+</resources>

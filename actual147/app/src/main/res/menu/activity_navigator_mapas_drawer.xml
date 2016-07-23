@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_cuenta"
+            android:icon="@drawable/icon_perfil"
+            android:title="Mi Cuenta" />
+        <item
+            android:id="@+id/nav_rutas"
+            android:icon="@drawable/icon_flecha"
+            android:title="Mis Mapa" />
+        <item
+            android:id="@+id/nav_calificaciones"
+            android:icon="@drawable/icon_estrella"
+            android:title="Mis Calificaciones" />
+    </group>
+
+    <item android:title="Opciones">
+        <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Acerca de Safe Path" />
+        </menu>
+    </item>
+
+</menu>

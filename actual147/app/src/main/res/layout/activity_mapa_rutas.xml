@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="2dp"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
+    android:paddingTop="2dp"
+    tools:context="com.grupothal.safepath.MapaRutas">
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteInicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="13sp"
+        android:hint="Origen"
+        android:layout_alignParentTop="true"
+        android:elevation="10dp">
+        <requestFocus />
+    </AutoCompleteTextView>
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteMeta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="13sp"
+        android:hint="Destino"
+        android:elevation="10dp"
+        android:layout_below="@+id/autoCompleteInicio"
+        android:layout_alignParentStart="true" />
+
+    <com.google.android.gms.maps.MapView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mi_mapa"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/autoCompleteMeta"
+        android:layout_above="@+id/linearLayout">
+    </com.google.android.gms.maps.MapView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout"
+        android:background="@drawable/linea">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/imageView2"
+            android:layout_weight="0.3"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/caminar"
+            android:onClick="drawRouteW" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/imageView4"
+            android:layout_weight="0.3"
+            android:src="@drawable/auto"
+            android:nestedScrollingEnabled="true"
+            android:onClick="drawRouteA" />
+
+    </LinearLayout>
+
+</RelativeLayout>

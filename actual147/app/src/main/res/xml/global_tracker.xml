@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ga_appName">Example Analitics</string>
+
+    <integer name="ga_sessionTimeout">500</integer>
+
+    <!-- how often the dispatcher should fire -->
+    <integer name="ga_dispatchPeriod">1800</integer>
+
+    <!-- Treat events as test events and don't send to google -->
+    <bool name="ga_dryRun">false</bool>
+</resources>
