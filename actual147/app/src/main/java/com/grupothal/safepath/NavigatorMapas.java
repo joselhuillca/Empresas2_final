@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.facebook.Profile;
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -68,8 +69,7 @@ public class NavigatorMapas extends AppCompatActivity
     //Google Analitics
     public static GoogleAnalytics analytics;
     public static Tracker tracker;
-    // The following line should be changed to include the correct property id.
-    private static final String PROPERTY_ID = "UA-79249503-1";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,10 +111,13 @@ public class NavigatorMapas extends AppCompatActivity
         analytics = GoogleAnalytics.getInstance(this);
         analytics.setLocalDispatchPeriod(1800);
 
-        tracker = analytics.newTracker(PROPERTY_ID);
+        tracker = analytics.newTracker(Constantes.PROPERTY_ID);
         tracker.enableExceptionReporting(true);
         tracker.enableAdvertisingIdCollection(true);
         tracker.enableAutoActivityTracking(true);
+
+        tracker.setScreenName("Mi Mapa");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

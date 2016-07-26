@@ -17,6 +17,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -57,6 +60,10 @@ public class Registrarse extends AppCompatActivity implements Validator.Validati
     public Button btn_registrarse;
     private Validator validator;
 
+    //Google Analitics
+    public static GoogleAnalytics analytics;
+    public static Tracker tracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +73,21 @@ public class Registrarse extends AppCompatActivity implements Validator.Validati
         IniConfig();
         IniMainLayout();
         IniComponents();
+        Ini_GoogleAnalitics();
+    }
+
+    public void Ini_GoogleAnalitics()
+    {
+        analytics = GoogleAnalytics.getInstance(this);
+        analytics.setLocalDispatchPeriod(1800);
+
+        tracker = analytics.newTracker(Constantes.PROPERTY_ID);
+        tracker.enableExceptionReporting(true);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+
+        tracker.setScreenName("Registrarse");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     public void IniConfig(){
@@ -204,6 +226,10 @@ public class Registrarse extends AppCompatActivity implements Validator.Validati
 
     //Funcion Registrarse
     public void funRegistrarse(){
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Registrandose")
+                .build());
         validator.validate();
     }
 

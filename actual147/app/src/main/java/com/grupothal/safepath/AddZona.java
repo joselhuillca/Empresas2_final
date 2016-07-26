@@ -26,6 +26,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -70,6 +73,10 @@ public class AddZona extends AppCompatActivity {
 
     private Marker my_marker;
 
+    //Google Analitics
+    public static GoogleAnalytics analytics;
+    public static Tracker tracker;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +104,21 @@ public class AddZona extends AppCompatActivity {
         descripcion_text.setText("");*/
         Toast.makeText(this, "Puedes mover el marcador presionando sobre el un pequeño tiempo!!", Toast.LENGTH_LONG).show();
 
+        Ini_GoogleAnalitics();
+    }
+
+    public void Ini_GoogleAnalitics()
+    {
+        analytics = GoogleAnalytics.getInstance(this);
+        analytics.setLocalDispatchPeriod(1800);
+
+        tracker = analytics.newTracker(Constantes.PROPERTY_ID);
+        tracker.enableExceptionReporting(true);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+
+        tracker.setScreenName("Añadir Rutas");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -292,6 +314,11 @@ public class AddZona extends AppCompatActivity {
 
     public void add_qualification()
     {
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Adding Zone")
+                .build());
+
         SharedPreferences miCuentaCrear = this.getSharedPreferences(Constantes.MY_PREFS_NAME, this.MODE_PRIVATE);
         String clave_ = miCuentaCrear.getString("clave", null);
         Log.d("CLAVE", clave_);
@@ -377,6 +404,10 @@ public class AddZona extends AppCompatActivity {
         descripcion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Adding Description")
+                        .build());
                 //startActivity(new Intent(getActivity(), PopAddQualification.class));
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddZona.this);
 

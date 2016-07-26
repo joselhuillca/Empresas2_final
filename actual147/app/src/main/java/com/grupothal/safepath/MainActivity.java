@@ -29,6 +29,9 @@ import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -65,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements Validator.Validat
 
     public List<Usuario> list_usuarios;
 
+    //Google Analitics
+    public static GoogleAnalytics analytics;
+    public static Tracker tracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +86,22 @@ public class MainActivity extends AppCompatActivity implements Validator.Validat
         VerConnectionInternet();
         IniButomFacebook();
         DarEstiloCompo();
+        //Google Analytics
+        Ini_GoogleAnalitics();
+    }
+
+    public void Ini_GoogleAnalitics()
+    {
+        analytics = GoogleAnalytics.getInstance(this);
+        analytics.setLocalDispatchPeriod(1800);
+
+        tracker = analytics.newTracker(Constantes.PROPERTY_ID);
+        tracker.enableExceptionReporting(true);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+
+        tracker.setScreenName("Login");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     public void IniComponents() {
@@ -205,6 +228,10 @@ public class MainActivity extends AppCompatActivity implements Validator.Validat
     //Funcion de Iniciar Sesion mediante la cuenta de Safe Path
     public  void funSingIn()
     {
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Iniciando Sesion")
+                .build());
         validator.validate();
     }
 

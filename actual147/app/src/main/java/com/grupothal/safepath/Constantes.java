@@ -30,6 +30,10 @@ public class Constantes {
     }
 
     //****************************** Static Constantes *************************************
+    //GOOGLE ANALITYCS
+    // The following line should be changed to include the correct property id.
+    public static String PROPERTY_ID = "UA-79249503-1";
+
     //InternetClass.java
     public static String  titleMessageInternet = "Conexion a Internet";
     public static String mesageSuccessInternet = "Tu Dispositivo tiene Conexion a Wifi.";

@@ -17,6 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.kevinsawicki.http.HttpRequest;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -74,6 +77,9 @@ public class MapaRutas extends AppCompatActivity {
     private final double distanciaMinima20 = 4*distanciaMinima10;
     private final double distanciaMinima = 30;
 
+    //Google Analitics
+    public static GoogleAnalytics analytics;
+    public static Tracker tracker;
 
     @Override
     protected void onResume() {
@@ -106,6 +112,21 @@ public class MapaRutas extends AppCompatActivity {
 
         Toast.makeText(this, "Puedes mover el marcador de origen y destino presionando sobre el un pequeño tiempo!!", Toast.LENGTH_LONG).show();
 
+        Ini_GoogleAnalitics();
+    }
+
+    public void Ini_GoogleAnalitics()
+    {
+        analytics = GoogleAnalytics.getInstance(this);
+        analytics.setLocalDispatchPeriod(1800);
+
+        tracker = analytics.newTracker(Constantes.PROPERTY_ID);
+        tracker.enableExceptionReporting(true);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+
+        tracker.setScreenName("Buscar Rutas");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     //Si activa el GPS deberia de haber un boton de actualizar para mostrar su ubicacion
@@ -150,6 +171,10 @@ public class MapaRutas extends AppCompatActivity {
                         view.setOnClickListener(new View.OnClickListener(){
                             @Override
                             public void onClick(View v) {
+                                tracker.send(new HitBuilders.EventBuilder()
+                                        .setCategory("Action")
+                                        .setAction("Buscando Ruta")
+                                        .build());
                                 TextView textElegido = (TextView) v.findViewById(android.R.id.text1);
                                 if(posicion == 1) autoCompleteInicio.setText(textElegido.getText());
                                 else autoCompleteMeta.setText(textElegido.getText());
